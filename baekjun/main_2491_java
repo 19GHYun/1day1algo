@@ -1,0 +1,62 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+
+    public static void main(String[] args) throws IOException {
+    	
+    	Scanner sc = new Scanner(System.in);
+    	
+    	int a = sc.nextInt(); // 길이
+    	int size = 1; //답 체크할곳
+    	int real_answer = 1; //답 넣을곳 // 0으로 하면 길이 1일때 답이 0이 되므로 오류
+    	
+    	int[] arr = new int[a];
+    	
+    	for(int i = 0 ; i < arr.length ; i++) {
+    		arr[i] = sc.nextInt();
+    	}
+    	
+    	for(int i = 0 ; i < arr.length ; i++) {		//같거나 오름차순인 곳에서 제일 긴곳 체크
+    		if (i == 0) {
+    			
+    		}
+    		else if(i != 0) {
+    			if(arr[i-1] <= arr[i]) {
+    				size++;
+    			}else {
+    				size = 1;
+    			}
+    			if(real_answer < size) {
+    				real_answer = size;
+    			}
+    			
+    		}
+    	}
+    	size = 1;        // 이때 초기화 안해주면 6 6 6 6 6 6 을 넣을때 답이 11이 나옴.
+    	
+    	for(int i = 0 ; i < arr.length ; i++) {	//같거나 내림차순인 곳에서 제일 긴곳 체크
+    		if (i == 0) {
+    			
+    		}
+    		else if(i != 0) {
+    			if(arr[i-1] >= arr[i]) {
+    				size++;
+    			}else {
+    				size = 1;
+    			}
+    			if(real_answer < size) {
+    				real_answer = size;
+    			}
+    			
+    		}
+    	}
+    	
+    	System.out.print(real_answer);
+    	
+    	
+    }
+
+
+}
