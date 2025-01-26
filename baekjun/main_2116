@@ -1,0 +1,66 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[][] dices = new int[n][6];
+        for(int i=0; i<n; i++){
+            for(int j=0; j<6; j++){
+                dices[i][j] = sc.nextInt();
+            }
+        }
+        
+        int[] opposite = {5, 3, 4, 1, 2, 0}; // 반대면 매핑
+        int maxTotal = 0;
+        
+        // 첫 번째 주사위의 모든 아랫면 경우의 수 탐색
+        for(int firstBot=0; firstBot<6; firstBot++){
+            int currentSum = 0;
+            
+            // 첫 번째 주사위 처리
+            int topIdx = opposite[firstBot];
+            int currentMax = getMaxSide(dices[0], firstBot, topIdx);
+            currentSum += currentMax;
+            int prevTop = dices[0][topIdx];
+            
+            // 나머지 주사위 처리
+            for(int i=1; i<n; i++){
+                int botIdx = findIndex(dices[i], prevTop);
+                topIdx = opposite[botIdx];
+                currentMax = getMaxSide(dices[i], botIdx, topIdx);
+                currentSum += currentMax;
+                prevTop = dices[i][topIdx];
+            }
+            
+            if(currentSum > maxTotal){
+                maxTotal = currentSum;
+            }
+        }
+        
+        System.out.println(maxTotal);
+    }
+    
+    // 배열에서 값의 인덱스 찾기
+    private static int findIndex(int[] arr, int value){
+        for(int i=0; i<arr.length; i++){
+            if(arr[i] == value){
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    // 옆면 최대값 계산
+    private static int getMaxSide(int[] dice, int botIdx, int topIdx){
+        int max = 0;
+        for(int i=0; i<6; i++){
+            if(i != botIdx && i != topIdx){
+                if(dice[i] > max){
+                    max = dice[i];
+                }
+            }
+        }
+        return max;
+    }
+}
