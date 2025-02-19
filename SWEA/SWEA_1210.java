@@ -1,6 +1,12 @@
 import java.util.*;
 import java.io.*;
-
+/*
+* 아이디어
+* 도착지 X 부터 위로 올라가면서 dfs로 왼쪽 먼저 보고, 그다음 오른쪽 보고, 없으면 위로 올라가게 
+* 설계 및 구현.
+*
+*
+*/
 public class Solution {
 	public static int[][] arr;
 	public static boolean[][] check;
